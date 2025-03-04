@@ -74,29 +74,45 @@ export class News extends Component {
     super();
     console.log("I am a constructor from News Component.");
     this.state = {
-        articles : this.articles, 
-        loading: false
+      articles: this.articles,
+      loading: false,
     };
   }
   render() {
     return (
+      //   <div className="container my-3">
+      //     <h2>NewsMonkey - Top Headlines</h2>
+
+      //     <div className="row">
+      //       <div className="col-md-4">
+      //         {this.state.articles.map((ele) => {
+      //             return (
+      //           <NewsItem
+      //             title="myTitle"
+      //             description="myDescription"
+      //             imgUrl="https://cdn.24.co.za/files/Cms/General/d/3976/e7c85fbf382341149503d77e513f8e84.jpg"
+      //             newsUrl="TODO"
+      //           />
+      //             );
+      //         })}
+      //       </div>
+      //     </div>
+      //   </div>
       <div className="container my-3">
-        <h2>NewsMonkey - Top Headlines</h2>
+        <h1>NewsMonkey - Top Headlines</h1>
         <div className="row">
-          <div className="col-md-4">
-            <NewsItem
-              title="myTitle"
-              description="myDescription"
-              imgUrl="https://cdn.24.co.za/files/Cms/General/d/3976/e7c85fbf382341149503d77e513f8e84.jpg"
-              newsUrl="TODO"
-            />
-          </div>
-          <div className="col-md-4">
-            <NewsItem title="myTitle" description="myDescription" />
-          </div>
-          <div className="col-md-4">
-            <NewsItem title="myTitle" description="myDescription" />
-          </div>
+          {this.state.articles.map((element) => {
+            return (
+              <div className="col-md-3" key={element.url}>
+                <NewsItem
+                  title={element.title.slice(0, 30)}
+                  description={element.description.slice(0,87)}
+                  imgUrl={element.urlToImage}
+                  newsUrl={element.url}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     );
