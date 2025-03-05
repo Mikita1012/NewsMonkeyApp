@@ -77,17 +77,54 @@ export class News extends Component {
       // articles: this.articles, {/* this was written because we already had articles defined above the const. Since we commented it out we do not need it. The empty array before we fetch the api */}
       articles: [],
       loading: false,
+      pages: 1,
     };
   }
 
   async componentDidMount() {
     let url =
-      "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6";
-    let data = await fetch(url);  
-    let parsedData = await data.json()
+      "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&pageSize=20";
+    let data = await fetch(url);
+    let parsedData = await data.json();
+    console.log("render");
+
     console.log(parsedData);
-    this.setState({articles: parsedData.articles})    
+    this.setState({
+      articles: parsedData.articles,
+      totalResults: parsedData.totalResults,
+    });
   }
+
+  handlePreviousClick = async () => {
+    console.log("prev");
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+      this.state.pages - 1
+    }&pageSize=20`;
+    let data = await fetch(url);
+    let parsedData = await data.json();
+    console.log(parsedData);
+    this.setState({
+      pages: this.state.pages - 1,
+      articles: parsedData.articles,
+    });
+  };
+  handleNextClick = async () => {
+    console.log("next");
+    if (this.state.pages + 1 > Math.ceil(this.state.totalResults/20)) {
+    } else {
+      let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+        this.state.pages + 1
+      }&pageSize=20`;
+      let data = await fetch(url);
+      let parsedData = await data.json();
+      console.log(parsedData);
+      this.setState({ articles: parsedData.articles });
+      this.setState({
+        pages: this.state.pages + 1,
+        articles: parsedData.articles,
+      });
+    }
+  };
 
   render() {
     return (
@@ -110,18 +147,12 @@ export class News extends Component {
                   }
                   imgUrl={element.urlToImage}
                   newsUrl={element.url}
-                /> */}   
+                /> */}
                 {/* above is a trenay operator to limit the chars for descp and title chars */}
                 <NewsItem
-                  title={
-                    element.title ?
-                      element.title.slice(0, 30)
-                      : ""
-                  }
+                  title={element.title ? element.title.slice(0, 30) : ""}
                   description={
-                    element.description
-                      ? element.description.slice(0, 87)
-                      : ""
+                    element.description ? element.description.slice(0, 87) : ""
                   }
                   imgUrl={element.urlToImage}
                   newsUrl={element.url}
@@ -129,6 +160,18 @@ export class News extends Component {
               </div>
             );
           })}
+        </div>
+        <div className="container d-flex justify-content-between">
+          <button
+            className="btn btn-dark"
+            disabled={this.state.pages <= 1}
+            onClick={this.handlePreviousClick}
+          >
+            &larr; Previous
+          </button>
+          <button className="btn btn-dark" onClick={this.handleNextClick}>
+            Next &rarr;
+          </button>
         </div>
       </div>
     );
