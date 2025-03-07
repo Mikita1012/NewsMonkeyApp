@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
+import PropTypes from "prop-types";
 
 export class News extends Component {
   // articles = [
@@ -71,6 +72,18 @@ export class News extends Component {
   //     content: null,
   //   },
   // ];
+
+  static defaultProps = {
+    country: "us",
+    category: "entertainment",
+    pageSize: 8,
+  };
+
+  static propTypes = {
+    country: PropTypes.string,
+    category: PropTypes.string,
+    pageSize: PropTypes.number,
+  };
   constructor() {
     super();
     console.log("I am a constructor from News Component.");
@@ -83,8 +96,14 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&pageSize=${this.props.pageSize}`;
-    this.setState({loading: true})
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&category=${
+      this.props.category
+    }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+      this.state.pages - 1
+    }&pageSize=${this.props.pageSize}`;
+    this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log("render");
@@ -93,13 +112,17 @@ export class News extends Component {
     this.setState({
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
-      loading: false
+      loading: false,
     });
   }
 
   handlePreviousClick = async () => {
     console.log("prev");
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&category=${
+      this.props.category
+    }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
       this.state.pages - 1
     }&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
@@ -120,7 +143,11 @@ export class News extends Component {
         Math.ceil(this.state.totalResults / this.props.pageSize)
       )
     ) {
-      let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+      let url = `https://newsapi.org/v2/top-headlines?country=${
+        this.props.country
+      }&category=${
+        this.props.category
+      }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
         this.state.pages + 1
       }&pageSize=${this.props.pageSize}`;
       this.setState({ loading: true });
@@ -142,10 +169,11 @@ export class News extends Component {
         <h1 className="text-center">NewsMonkey - Top Headlines</h1>
         {this.state.loading && <Spinner />}
         <div className="row">
-          {!this.state.loading && this.state.articles.map((element) => {
-            return (
-              <div className="col-md-3" key={element.url}>
-                {/* <NewsItem
+          {!this.state.loading &&
+            this.state.articles.map((element) => {
+              return (
+                <div className="col-md-3" key={element.url}>
+                  {/* <NewsItem
                   title={
                     element.title.length >= 30
                       ? element.title.slice(0, 30) + "..."
@@ -159,18 +187,20 @@ export class News extends Component {
                   imgUrl={element.urlToImage}
                   newsUrl={element.url}
                 /> */}
-                {/* above is a trenay operator to limit the chars for descp and title chars */}
-                <NewsItem
-                  title={element.title ? element.title.slice(0, 30) : ""}
-                  description={
-                    element.description ? element.description.slice(0, 87) : ""
-                  }
-                  imgUrl={element.urlToImage}
-                  newsUrl={element.url}
-                />
-              </div>
-            );
-          })}
+                  {/* above is a trenay operator to limit the chars for descp and title chars */}
+                  <NewsItem
+                    title={element.title ? element.title.slice(0, 30) : ""}
+                    description={
+                      element.description
+                        ? element.description.slice(0, 87)
+                        : ""
+                    }
+                    imgUrl={element.urlToImage}
+                    newsUrl={element.url}
+                  />
+                </div>
+              );
+            })}
         </div>
         <div className="container d-flex justify-content-between">
           <button

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+
 
 export class Navbar extends Component {
   static propTypes = {};
@@ -9,7 +9,7 @@ export class Navbar extends Component {
       <>
         <nav className="navbar navbar-expand-lg bg-dark">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#" style={{color: "white"}}>
+            <a className="navbar-brand" href="/" style={{ color: "white" }}>
               NewsMonkey
             </a>
             <button
@@ -29,13 +29,85 @@ export class Navbar extends Component {
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a className="nav-link active" aria-current="page" href="/" style={{color: "white"}}>
+                  <a
+                    className="nav-link active"
+                    aria-current="page"
+                    href="/"
+                    style={{ color: "white" }}
+                  >
                     Home
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/about" style={{color: "white"}}>
+                  <a
+                    className="nav-link"
+                    href="/about"
+                    style={{ color: "white" }}
+                  >
                     About
+                  </a>
+                </li>
+                <li className="nav=link">
+                  <a
+                    className="nav-link"
+                    href="/b"
+                    style={{ color: "white" }}
+                  >
+                    Business
+                  </a>
+                </li>
+                <li className="nav=link">
+                  <a
+                    className="nav-link"
+                    href="/e"
+                    style={{ color: "white" }}
+                  >
+                    Entertainment
+                  </a>
+                </li>
+                <li className="nav=link">
+                  <a
+                    className="nav-link"
+                    href="/g"
+                    style={{ color: "white" }}
+                  >
+                    General
+                  </a>
+                </li>
+                <li className="nav=link">
+                  <a
+                    className="nav-link"
+                    href="/h"
+                    style={{ color: "white" }}
+                  >
+                    Health
+                  </a>
+                </li>
+                <li className="nav=link">
+                  <a
+                    className="nav-link"
+                    href="/sd"
+                    style={{ color: "white" }}
+                  >
+                    Science
+                  </a>
+                </li>
+                <li className="nav=link">
+                  <a
+                    className="nav-link"
+                    href="/t"
+                    style={{ color: "white" }}
+                  >
+                    Sports
+                  </a>
+                </li>
+                <li className="nav=link">
+                  <a
+                    className="nav-link"
+                    href="/s"
+                    style={{ color: "white" }}
+                  >
+                    Technology
                   </a>
                 </li>
               </ul>
