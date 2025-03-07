@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
+import Spinner from "./Spinner";
 
 export class News extends Component {
   // articles = [
@@ -82,8 +83,8 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let url =
-      `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&pageSize=${this.props.pageSize}`;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&pageSize=${this.props.pageSize}`;
+    this.setState({loading: true})
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log("render");
@@ -92,6 +93,7 @@ export class News extends Component {
     this.setState({
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
+      loading: false
     });
   }
 
@@ -100,21 +102,28 @@ export class News extends Component {
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
       this.state.pages - 1
     }&pageSize=${this.props.pageSize}`;
+    this.setState({ loading: true });
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
     this.setState({
       pages: this.state.pages - 1,
       articles: parsedData.articles,
+      loading: false,
     });
   };
   handleNextClick = async () => {
     console.log("next");
-    if (this.state.pages + 1 > Math.ceil(this.state.totalResults/this.props.pageSize)) {
-    } else {
+    if (
+      !(
+        this.state.pages + 1 >
+        Math.ceil(this.state.totalResults / this.props.pageSize)
+      )
+    ) {
       let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
         this.state.pages + 1
       }&pageSize=${this.props.pageSize}`;
+      this.setState({ loading: true });
       let data = await fetch(url);
       let parsedData = await data.json();
       console.log(parsedData);
@@ -122,6 +131,7 @@ export class News extends Component {
       this.setState({
         pages: this.state.pages + 1,
         articles: parsedData.articles,
+        loading: false,
       });
     }
   };
@@ -130,8 +140,9 @@ export class News extends Component {
     return (
       <div className="container my-3">
         <h1 className="text-center">NewsMonkey - Top Headlines</h1>
+        {this.state.loading && <Spinner />}
         <div className="row">
-          {this.state.articles.map((element) => {
+          {!this.state.loading && this.state.articles.map((element) => {
             return (
               <div className="col-md-3" key={element.url}>
                 {/* <NewsItem
@@ -169,7 +180,14 @@ export class News extends Component {
           >
             &larr; Previous
           </button>
-          <button className="btn btn-dark" onClick={this.handleNextClick} disabled={this.state.pages+1 > Math.ceil(this.state.totalResults/this.props.pageSize)}>
+          <button
+            className="btn btn-dark"
+            onClick={this.handleNextClick}
+            disabled={
+              this.state.pages + 1 >
+              Math.ceil(this.state.totalResults / this.props.pageSize)
+            }
+          >
             Next &rarr;
           </button>
         </div>
