@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 
 export class Navbar extends Component {
@@ -9,9 +10,9 @@ export class Navbar extends Component {
       <>
         <nav className="navbar navbar-expand-lg bg-dark">
           <div className="container-fluid">
-            <a className="navbar-brand" href="/" style={{ color: "white" }}>
+            <Link className="navbar-brand" to="/" style={{ color: "white" }}>
               NewsMonkey
-            </a>
+            </Link>
             <button
               className="navbar-toggler"
               type="button"
@@ -29,86 +30,44 @@ export class Navbar extends Component {
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <a
-                    className="nav-link active"
-                    aria-current="page"
-                    href="/"
-                    style={{ color: "white" }}
-                  >
+                  <Link className="nav-link active active" aria-current="page" to="/" style={{ color: "white"}}>     
                     Home
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/about"
-                    style={{ color: "white" }}
-                  >
-                    About
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav=link">
-                  <a
-                    className="nav-link"
-                    href="/b"
-                    style={{ color: "white" }}
-                  >
+                  <Link className="nav-link active" to="/business" style={{ color: "white" }}>
                     Business
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav=link">
-                  <a
-                    className="nav-link"
-                    href="/e"
-                    style={{ color: "white" }}
-                  >
+                  <Link className="nav-link active" to="/entertainment" style={{ color: "white" }}>
                     Entertainment
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav=link">
-                  <a
-                    className="nav-link"
-                    href="/g"
-                    style={{ color: "white" }}
-                  >
+                  <Link className="nav-link active" to="/general" style={{ color: "white" }}>
                     General
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav=link">
-                  <a
-                    className="nav-link"
-                    href="/h"
-                    style={{ color: "white" }}
-                  >
+                  <Link className="nav-link active" to="/health" style={{ color: "white" }}>
                     Health
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav=link">
-                  <a
-                    className="nav-link"
-                    href="/sd"
-                    style={{ color: "white" }}
-                  >
+                  <Link className="nav-link active" to="/science" style={{ color: "white" }}>
                     Science
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav=link">
-                  <a
-                    className="nav-link"
-                    href="/t"
-                    style={{ color: "white" }}
-                  >
+                  <Link className="nav-link active" to="/sports" style={{ color: "white" }}>
                     Sports
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav=link">
-                  <a
-                    className="nav-link"
-                    href="/s"
-                    style={{ color: "white" }}
-                  >
+                  <Link className="nav-link active" to="/technology" style={{ color: "white" }}>
                     Technology
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
