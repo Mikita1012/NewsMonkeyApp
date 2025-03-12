@@ -5,8 +5,8 @@ export class HomePage extends Component {
   render() {
     return (
       <>
-      <h1>Click on any of the type of news below to go to the news</h1>
-        <ul className="list-group">
+      <h1 className="text-center my-2">Click on any of the type of news below to go to the news</h1>
+        <ul className="list-group my-4">
           <li className="list-group-item text-center"><Link to="/general">GENERAL</Link></li>
           <li className="list-group-item text-center"><Link to="/business" >BUSINESS</Link></li>
           <li className="list-group-item text-center"><Link to="/entertainment">ENTERTAINMENT</Link></li>

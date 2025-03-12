@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
-import PropTypes from "prop-types";
+import PropTypes, { string } from "prop-types";
 
 export class News extends Component {
   // articles = [
@@ -84,8 +84,12 @@ export class News extends Component {
     category: PropTypes.string,
     pageSize: PropTypes.number,
   };
-  constructor() {
-    super();
+
+  captilizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  constructor(props) {
+    super(props);
     console.log("I am a constructor from News Component.");
     this.state = {
       // articles: this.articles, {/* this was written because we already had articles defined above the const. Since we commented it out we do not need it. The empty array before we fetch the api */}
@@ -93,6 +97,7 @@ export class News extends Component {
       loading: false,
       pages: 1,
     };
+    document.title = `${this.captilizeFirstLetter(this.props.category)} - NewsMonkey`
   }
   
   async updateNews()  {
@@ -117,24 +122,25 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let url = `https://newsapi.org/v2/top-headlines?country=${
-      this.props.country
-    }&category=${
-      this.props.category
-    }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
-      this.state.pages - 1
-    }&pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true });
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    console.log("render");
+    // let url = `https://newsapi.org/v2/top-headlines?country=${
+    //   this.props.country
+    // }&category=${
+    //   this.props.category
+    // }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+    //   this.state.pages - 1
+    // }&pageSize=${this.props.pageSize}`;
+    // this.setState({ loading: true });
+    // let data = await fetch(url);
+    // let parsedData = await data.json();
+    // console.log("render");
 
-    console.log(parsedData);
-    this.setState({
-      articles: parsedData.articles,
-      totalResults: parsedData.totalResults,
-      loading: false,
-    });
+    // console.log(parsedData);
+    // this.setState({
+    //   articles: parsedData.articles,
+    //   totalResults: parsedData.totalResults,
+    //   loading: false,
+    // });
+    this.updateNews();
   }
 
   handlePreviousClick = async () => {
@@ -194,7 +200,7 @@ export class News extends Component {
   render() {
     return (
       <div className="container my-3">
-        <h1 className="text-center">NewsMonkey - Top Headlines</h1>
+        <h1 className="text-center">{`NewsMonkey - Top Headlines on ${this.captilizeFirstLetter(this.props.category)}`} </h1>
         {this.state.loading && <Spinner />}
         <div className="row">
           {!this.state.loading &&
