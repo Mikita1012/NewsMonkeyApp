@@ -16,7 +16,7 @@ export class NewsItem extends Component {
             alt="..."
           />
           <div className="card-body">
-            <h5 className="card-title">{title} <h6><span className="badge text-bg-secondary">{source}</span></h6></h5>
+            <h5 className="card-title">{title} <span className="badge text-bg-secondary">{source}</span></h5>
             <p className="card-text">{description}</p>
             <p className="card-text">
               <small className="text-body-secondary">By <strong>{!author ? 'unknown': author} </strong> <br/> on <strong>{new Date().toUTCString(date)}</strong> </small>
