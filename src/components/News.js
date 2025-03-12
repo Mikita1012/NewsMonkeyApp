@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import PropTypes, { string } from "prop-types";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export class News extends Component {
   // articles = [
@@ -87,7 +88,7 @@ export class News extends Component {
 
   captilizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  };
   constructor(props) {
     super(props);
     console.log("I am a constructor from News Component.");
@@ -96,11 +97,14 @@ export class News extends Component {
       articles: [],
       loading: false,
       pages: 1,
+      totalResults: 0
     };
-    document.title = `${this.captilizeFirstLetter(this.props.category)} - NewsMonkey`
+    document.title = `${this.captilizeFirstLetter(
+      this.props.category
+    )} - NewsMonkey`;
   }
-  
-  async updateNews()  {
+
+  async updateNews() {
     let url = `https://newsapi.org/v2/top-headlines?country=${
       this.props.country
     }&category=${
@@ -118,6 +122,7 @@ export class News extends Component {
       articles: parsedData.articles,
       totalResults: parsedData.totalResults,
       loading: false,
+      
     });
   }
 
@@ -143,8 +148,8 @@ export class News extends Component {
     this.updateNews();
   }
 
-  handlePreviousClick = async () => {
-    console.log("prev");
+  // handlePreviousClick = async () => {
+  //   console.log("prev");
     // let url = `https://newsapi.org/v2/top-headlines?country=${
     //   this.props.country
     // }&category=${
@@ -162,11 +167,11 @@ export class News extends Component {
     //   loading: false,
     // });
 
-    this.setState({pages: this.state.pages - 1})
-    this.updateNews();
-  };
-  handleNextClick = async () => {
-    console.log("next");
+  //   this.setState({ pages: this.state.pages - 1 });
+  //   this.updateNews();
+  // };
+  // handleNextClick = async () => {
+  //   console.log("next");
     // if (
     //   !(
     //     this.state.pages + 1 >
@@ -192,19 +197,90 @@ export class News extends Component {
     //   });
     // }
 
+  //   this.setState({ pages: this.state.pages + 1 });
+  //   this.updateNews();
+  // };
+
+  fetchMoreData = async () => {
+    
     this.setState({pages: this.state.pages + 1})
-    this.updateNews();
-
-  };
-
+    let url = `https://newsapi.org/v2/top-headlines?country=${
+      this.props.country
+    }&category=${
+      this.props.category
+    }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+      this.state.pages - 1
+    }&pageSize=${this.props.pageSize}`;
+    this.setState({ loading: true });
+    let data = await fetch(url);
+    let parsedData = await data.json();
+    console.log("render");
+    console.log(parsedData);
+    this.setState({
+      articles: this.state.articles.concat(parsedData.articles),
+      totalResults: parsedData.totalResults,
+      loading: false,
+      
+    });
+  }
   render() {
     return (
-      <div className="container my-3">
-        <h1 className="text-center">{`NewsMonkey - Top Headlines on ${this.captilizeFirstLetter(this.props.category)}`} </h1>
-        {this.state.loading && <Spinner />}
-        <div className="row">
+      <>
+        <h1 className="text-center">
+          {`NewsMonkey - Top Headlines on ${this.captilizeFirstLetter(
+            this.props.category
+          )}`}
+        </h1>
+        {/* {this.state.loading && <Spinner />} */}
+        {/* <div className="row">
           {!this.state.loading &&
             this.state.articles.map((element) => {
+              return (
+                <div className="col-md-3" key={element.url}> */}
+        {/* <NewsItem
+                  title={
+                    element.title.length >= 30
+                      ? element.title.slice(0, 30) + "..."
+                      : element.title
+                  }
+                  description={
+                    element.description.length >= 60
+                      ? element.description.slice(0, 87) + "..."
+                      : element.description
+                  }
+                  imgUrl={element.urlToImage}
+                  newsUrl={element.url}
+                /> */}
+        {/* above is a trenay operator to limit the chars for descp and title chars */}
+        {/* <NewsItem
+                    title={element.title ? element.title.slice(0, 30) : ""}
+                    description={
+                      element.description
+                        ? element.description.slice(0, 100)
+                        : ""
+                    }
+                    imgUrl={element.urlToImage}
+                    newsUrl={element.url}
+                    author={element.author}
+                    publishedAt={element.publishedAt}
+                    source={element.source.name}
+                  />
+                </div> */}
+        {/* );
+            })}
+        </div> */}
+        <InfiniteScroll
+          dataLength={this.state.articles.length}
+          next={this.fetchMoreData}
+          hasMore={this.state.articles.length !== this.state.totalResults}
+          loader={<Spinner/>}
+        >
+
+          <div className="container">
+            
+          
+          <div className="row">
+            {this.state.articles.map((element) => {
               return (
                 <div className="col-md-3" key={element.url}>
                   {/* <NewsItem
@@ -238,8 +314,10 @@ export class News extends Component {
                 </div>
               );
             })}
-        </div>
-        <div className="container d-flex justify-content-between">
+          </div>
+          </div>
+        </InfiniteScroll>
+        {/* <div className="container d-flex justify-content-between">
           <button
             className="btn btn-dark"
             disabled={this.state.pages <= 1}
@@ -250,15 +328,15 @@ export class News extends Component {
           <button
             className="btn btn-dark"
             onClick={this.handleNextClick}
-            disabled={
+            disabled={F
               this.state.pages + 1 >
               Math.ceil(this.state.totalResults / this.props.pageSize)
             }
           >
             Next &rarr;
           </button>
-        </div>
-      </div>
+        </div> */}
+      </>
     );
   }
 }
