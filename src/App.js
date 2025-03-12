@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import News from "./components/News";
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
 import NewsItem from "./components/NewsItem";
+import HomePage from "./components/HomePage";
 
 export default class App extends Component {
   render() {
@@ -12,6 +13,12 @@ export default class App extends Component {
           <Navbar />
           {/* <News /> */}
           <Routes>
+            <Route
+               exact path="/"
+              element={
+                <HomePage/>
+              }
+            />
             <Route
                exact path="/general"
               element={
@@ -54,6 +61,7 @@ export default class App extends Component {
               element={
                 <News key="technology" pageSize={8} category="technology" country="us" />
               }
+
             />
           </Routes>
         </BrowserRouter>
