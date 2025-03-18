@@ -76,8 +76,8 @@ export class News extends Component {
 
   static defaultProps = {
     country: "us",
-    category: "business",
-    pageSize: 8,
+    category: "business"
+    // pageSize: 8,
   };
 
   static propTypes = {
@@ -105,6 +105,7 @@ export class News extends Component {
   }
 
   async updateNews() {
+    this.props.setProgress(10);
     let url = `https://newsapi.org/v2/top-headlines?country=${
       this.props.country
     }&category=${
@@ -124,6 +125,7 @@ export class News extends Component {
       loading: false,
       
     });
+    this.props.setProgress(100);
   }
 
   async componentDidMount() {
@@ -269,14 +271,14 @@ export class News extends Component {
         {/* );
             })}
         </div> */}
-        <InfiniteScroll
+        {/* <InfiniteScroll
           dataLength={this.state.articles.length}
           next={this.fetchMoreData}
           hasMore={this.state.articles.length !== this.state.totalResults}
           loader={<Spinner/>}
         >
 
-          <div className="container">
+          <div className="container"> */}
             
           
           <div className="row">
@@ -315,8 +317,8 @@ export class News extends Component {
               );
             })}
           </div>
-          </div>
-        </InfiniteScroll>
+          {/* </div>
+        </InfiniteScroll> */}
         {/* <div className="container d-flex justify-content-between">
           <button
             className="btn btn-dark"
