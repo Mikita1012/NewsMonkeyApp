@@ -8,6 +8,7 @@ import LoadingBar from "react-top-loading-bar";
 
 export default class App extends Component {
   pageSize=10;
+  apiKey= process.env.REACT_APP_NEWS_API
   state = {
     progress: 0
   }
@@ -34,44 +35,44 @@ export default class App extends Component {
             <Route
                exact path="/general"
               element={
-                <News setProgress={this.setProgress} key="general" pageSize={8} category="general" country="us" />
+                <News apiKey={this.apiKey} setProgress={this.setProgress} key="general" pageSize={8} category="general" country="us" />
               }
             />
             <Route
                exact path="/business"
               element={
-                <News setProgress={this.setProgress} key="business" pageSize={8} category="business" country="us" />
+                <News apiKey={this.apiKey} setProgress={this.setProgress} key="business" pageSize={8} category="business" country="us" />
               }
             />
             <Route
                exact path="/entertainment"
               element={
-                <News setProgress={this.setProgress} key="entertainment" pageSize={8} category="entertainment" country="us" />
+                <News apiKey={this.apiKey} setProgress={this.setProgress} key="entertainment" pageSize={8} category="entertainment" country="us" />
               }
             />
         
             <Route
                exact path="/health"
               element={
-                <News setProgress={this.setProgress} key="health" pageSize={8} category="heatlh" country="us" />
+                <News apiKey={this.apiKey} setProgress={this.setProgress} key="health" pageSize={8} category="heatlh" country="us" />
               }
             />
             <Route
                exact path="/science"
               element={
-                <News setProgress={this.setProgress} key="science" pageSize={8} category="science" country="us" />
+                <News apiKey={this.apiKey} setProgress={this.setProgress} key="science" pageSize={8} category="science" country="us" />
               }
             />
             <Route
                exact path="/sports"
               element={
-                <News setProgress={this.setProgress} key="sports" pageSize={8} category="sports" country="us" />
+                <News apiKey={this.apiKey} setProgress={this.setProgress} key="sports" pageSize={8} category="sports" country="us" />
               }
             />
             <Route
                exact path="/technology"
               element={
-                <News setProgress={this.setProgress} key="technology" pageSize={8} category="technology" country="us" />
+                <News apiKey={this.apiKey} setProgress={this.setProgress} key="technology" pageSize={8} category="technology" country="us" />
               }
 
             />

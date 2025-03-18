@@ -110,7 +110,7 @@ export class News extends Component {
       this.props.country
     }&category=${
       this.props.category
-    }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+    }&apiKey=${this.props.apiKey}&page=${
       this.state.pages - 1
     }&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
@@ -133,7 +133,7 @@ export class News extends Component {
     //   this.props.country
     // }&category=${
     //   this.props.category
-    // }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+    // }&apiKey=${this.props.apiKey}&page=${
     //   this.state.pages - 1
     // }&pageSize=${this.props.pageSize}`;
     // this.setState({ loading: true });
@@ -156,7 +156,7 @@ export class News extends Component {
     //   this.props.country
     // }&category=${
     //   this.props.category
-    // }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+    // }&apiKey=${this.props.apiKey}&page=${
     //   this.state.pages - 1
     // }&pageSize=${this.props.pageSize}`;
     // this.setState({ loading: true });
@@ -184,7 +184,7 @@ export class News extends Component {
     //     this.props.country
     //   }&category=${
     //     this.props.category
-    //   }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+    //   }&apiKey=${this.props.apiKey}&page=${
     //     this.state.pages + 1
     //   }&pageSize=${this.props.pageSize}`;
     //   this.setState({ loading: true });
@@ -210,7 +210,7 @@ export class News extends Component {
       this.props.country
     }&category=${
       this.props.category
-    }&apiKey=e4cebccc18554feab71f2b6540c415b6&page=${
+    }&apiKey=${this.props.apiKey}&page=${
       this.state.pages - 1
     }&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
