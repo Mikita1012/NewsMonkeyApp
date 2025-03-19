@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
-export class HomePage extends Component {
-  render() {
+const HomePage = () => {
+  
     return (
       <>
       <h1 className="text-center my-2">Click on any of the type of news below to go to the news</h1>
@@ -17,7 +17,6 @@ export class HomePage extends Component {
         </ul>
       </>
     );
-  }
 }
 
 export default HomePage;

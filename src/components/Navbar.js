@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 
@@ -8,7 +8,7 @@ const Navbar = () => {
 
     return (
       <>
-        <nav className="navbar navbar-expand-lg bg-dark">
+        <nav className="navbar fixed-top navbar-expand-lg bg-dark">
           <div className="container-fluid">
             <Link className="navbar-brand" to="/" style={{ color: "white" }}>
               NewsMonkey

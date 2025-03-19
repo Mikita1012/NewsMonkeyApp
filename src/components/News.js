@@ -9,9 +9,7 @@ const News = (props) => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
-  // document.title = `${captilizeFirstLetter(
-  //     props.category
-  //   )} - NewsMonkey`;
+  
 
   const captilizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -43,6 +41,9 @@ const News = (props) => {
     props.setProgress(100);
   };
   useEffect(() => {
+    document.title = `${captilizeFirstLetter(
+      props.category
+    )} - NewsMonkey`;
     updateNews();
   }, []);
 
@@ -59,12 +60,13 @@ const News = (props) => {
 
   const fetchMoreData = async () => {
     // this.setState({ pages: this.state.pages + 1 });
-    setPage(page + 1);
+    
     let url = `https://newsapi.org/v2/top-headlines?country=${
       props.country
     }&category=${props.category}&apiKey=${props.apiKey}&page=${setPage(
       page + 1
     )}&pageSize=${props.pageSize}`;
+    setPage(page + 1);
     setLoading(true);
     let data = await fetch(url);
     let parsedData = await data.json();
@@ -82,7 +84,7 @@ const News = (props) => {
 
   return (
     <>
-      <h1 className="text-center">
+      <h1 className="text-center" style={{marginTop: "70px"}}>
         {`NewsMonkey - Top Headlines on ${captilizeFirstLetter(
           props.category
         )}`}
