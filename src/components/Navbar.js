@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 
-export class Navbar extends Component {
-  static propTypes = {};
+const Navbar = () => {
 
-  render() {
+
+
     return (
       <>
         <nav className="navbar navbar-expand-lg bg-dark">
@@ -57,7 +57,7 @@ export class Navbar extends Component {
                 <li className="nav=link">
                   <Link className="nav-link active" to="/science" style={{ color: "white" }}>
                     Science
-                  </Link>
+                 </Link>
                 </li>
                 <li className="nav=link">
                   <Link className="nav-link active" to="/sports" style={{ color: "white" }}>
@@ -75,7 +75,6 @@ export class Navbar extends Component {
         </nav>
       </>
     );
-  }
 }
 
 export default Navbar;
